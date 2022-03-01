@@ -36,7 +36,11 @@ yt.post("/",cors(), (req, res, next) => {
         let pipe = fs.createWriteStream(titulo + '.webp')
         pipe = rq(infoData).pipe(pipe)
         pipe.on('close', () => {
+            console.log('pasa');
             ffmpeg().input(titulo + '.webp').saveToFile(titulo + '.png')
+            res.header('Access-Control-Allow-Origin', '*');
+    res.header("Access-Control-Allow-Headers", "Content-Type")
+    res.header("Access-Control-Allow-Methods", "OPTIONS,POST,GET")
             res.json(
                 musica)
 
