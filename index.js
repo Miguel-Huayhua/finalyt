@@ -9,16 +9,14 @@ const nodei3 = require('node-id3').Promise
 const fs = require('fs');
 
 
-app.use(cors());
-app.options('/descargas', (req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header("Access-Control-Allow-Headers", "Content-Type")
-    res.header("Access-Control-Allow-Methods", "OPTIONS,POST,GET")
-})
+
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use('/descargas', route)
+app.options('/descargas', (req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+})
 app.post('/manda', (req, res) => {
     let link = req.body.link
     ytdl.getInfo(link).then(info => {
